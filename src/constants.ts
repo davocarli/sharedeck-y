@@ -1,0 +1,1 @@
+export const shareDeckBaseUrl = "https://sharedeck.games/reports?app_id=";

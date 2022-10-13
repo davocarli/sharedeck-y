@@ -1,10 +1,10 @@
 {
-  "name": "Example Plugin",
-  "author": "John Doe",
-  "flags": ["debug", "_root"],
+  "name": "ShareDeck-y",
+  "author": "DCA",
+  "flags": ["utility", "guides"],
   "publish": {
-    "tags": ["template", "root"],
-    "description": "Decky example plugin.",
+    "tags": ["utility", "guides"],
+    "description": "Plugin that loads ShareDeck reports for your currently-open game.",
     "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
   }
 }
