@@ -1,10 +1,10 @@
 import React, { createContext, useReducer } from 'react';
 import { AppActions, shareDeckReducer } from '../reducers/ShareDeckReducer';
-import { ReportItem } from '../components/Report/Report';
+import { ReportInterface } from '../components/Report/Report';
 
 export type ShareDeckState = {
     runningGame?: string;
-    reports: ReportItem[] | null;
+    reports: ReportInterface[] | null;
     isLoading: boolean;
 };
 
