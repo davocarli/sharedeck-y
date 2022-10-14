@@ -1,22 +1,12 @@
-import { ReportItem } from './Report';
+import { Report, ShareDeckTable } from './Report';
 import { ReactElement } from 'react';
 import {
-    ButtonItem,
-    definePlugin,
-    DialogButton,
-    Menu,
-    MenuItem,
     PanelSection,
-    PanelSectionRow,
-    Router,
-    ServerAPI,
-    showContextMenu,
-    staticClasses,
     gamepadDialogClasses,
     joinClassNames,
     Focusable,
-    Button,
 } from "decky-frontend-lib";
+import ScrollSection from '../ScrollSection/ScrollSection';
 
 const FieldWithSeparator = joinClassNames(gamepadDialogClasses.Field, gamepadDialogClasses.WithBottomSeparatorStandard);
 
@@ -44,21 +34,19 @@ export function TableItem({
 export function Table({
     tableObject,
 }: {
-    tableObject: object,
+    tableObject: ShareDeckTable,
 }): ReactElement {
     let items = [];
     // @ts-ignore
-    let tableTitle = tableObject.tableTitle
-    for (const [key, value] of Object.entries(tableObject)) {
+    for (const [key, value] of Object.entries(tableObject.rows)) {
         let val = `${value}`
-        if (key != "tableTitle") {
-            items.push(TableItem({label: key, value: val}));
-        }
+        items.push(TableItem({label: key, value: val}));
     };
     return (
         <Focusable>
-            {`${tableTitle}`}
-            {items}
+            <ScrollSection/>
+                {`${tableObject.title}`}
+                {items}
         </Focusable>
     )
 }
@@ -66,22 +54,22 @@ export function Table({
 export function ReportElement({
     report,
 }: {
-    report: ReportItem
+    report: Report
 }): ReactElement {
     let tables = []
+    let reportTables = report.tables;
     for (var i = 0; i < report.tables.length; i++) {
-        let table: object = report.tables[i];
-        tables.push(Table({tableObject: table}));
+        tables.push(Table({tableObject: reportTables[i]}));
     }
     return (
         <PanelSection>
-            {`${report.playTime} | ${report.wattage} | ${report.fps} | ${report.preset}`}
+            {report.header}
             <div className={gamepadDialogClasses.FieldDescription}>
                 {`${report.note}`}
             </div>
             {tables}
             <div className={gamepadDialogClasses.FieldDescription}>
-                {`Reported by: ${report.reporter}`}
+                {`Reported by: ${report.user?.personaname}`}
             </div>
         </PanelSection>
     )

@@ -1,11 +1,13 @@
-import { PanelSection, Router, Spinner } from 'decky-frontend-lib';
+import { PanelSection, Router } from 'decky-frontend-lib';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../../context/Context';
 import { ActionType } from '../../reducers/ShareDeckReducer';
 import { DefaultProps, getReports } from '../../utils';
 import { shareDeckBaseUrl } from '../../constants';
-import { ReportItem } from '../Report/Report';
+import { ReportInterface, Report } from '../Report/Report';
 import {ReportElement } from '../Report/ReportElement';
+import BuyCoffee from '../BuyCoffee/BuyCoffee';
+import ScrollSection from '../ScrollSection/ScrollSection';
 
 export const ShareDecky = ({ serverApi }: DefaultProps) => {
 
@@ -47,7 +49,7 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
             return currentGame;
         }
 
-        const handleReports = (data: ReportItem[]) => {
+        const handleReports = (data: ReportInterface[]) => {
             // writeLog('Handling reports');
             dispatch({
                 type: ActionType.UPDATE_REPORTS,
@@ -91,25 +93,25 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
 
     });
 
-    if (isLoading) {
-        // writeLog('ShareDeck-y isLoading condition');
-        return <PanelSection spinner={true} title="LOADING REPORTS"></PanelSection>
-    }
-
     if (runningGame == null) {
         // writeLog('ShareDeck-y Norunning condition');
-        return <PanelSection title="Open a game to see ShareDeck Reports"></PanelSection>
+        return <PanelSection title="Open a game to see ShareDeck Reports"><BuyCoffee/></PanelSection>
     };
 
     let appDetails = appStore.GetAppOverviewByGameID(parseInt(runningGame));
 
+    if (isLoading) {
+        // writeLog('ShareDeck-y isLoading condition');
+        return <PanelSection spinner={true} title={appDetails.display_name}></PanelSection>
+    }
+
     let reportObjects = []
 
     if (reports == null || reports.length == 0) {
-        return <PanelSection title={`${appDetails.display_name}`}>No Reports Found</PanelSection>
+        return <PanelSection title={appDetails.display_name}>No Reports Found<BuyCoffee/></PanelSection>
     } else {
         for (let i = 0; i < reports.length; i++) {
-            let report = reports[i];
+            let report = new Report(reports[i] as ReportInterface)
             reportObjects.push(
                 ReportElement({report: report})
             );
@@ -119,8 +121,10 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
     // writeLog('ShareDeck-y Other condition');
     return (
     <div>
-        <PanelSection>{`${appDetails.display_name}`}</PanelSection>
+        <ScrollSection/>
+        <PanelSection>{appDetails.display_name}</PanelSection>
         {reportObjects}
+        <BuyCoffee/>
     </div>
     )
 }

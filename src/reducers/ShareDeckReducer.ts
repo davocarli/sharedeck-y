@@ -1,4 +1,4 @@
-import { ReportItem } from '../components/Report/Report';
+import { ReportInterface } from '../components/Report/Report';
 import { ShareDeckState } from '../context/Context';
 
 export enum ActionType {
@@ -24,7 +24,7 @@ export type StartLoadingAction= {
 
 export type UpdateReportsAction = {
     type: ActionType.UPDATE_REPORTS;
-    payload: ReportItem[];
+    payload: ReportInterface[];
 }
 
 export const shareDeckReducer = (state: ShareDeckState, action: AppActions): ShareDeckState => {

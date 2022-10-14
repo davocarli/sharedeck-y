@@ -1,5 +1,4 @@
-import { definePlugin, ServerAPI, staticClasses, PanelSection } from 'decky-frontend-lib';
-import React from 'react';
+import { definePlugin, ServerAPI, staticClasses } from 'decky-frontend-lib';
 import { FaCogs } from 'react-icons/fa';
 import { ShareDecky } from './components/ShareDecky/ShareDecky';
 import { AppContextProvider } from './context/Context';
