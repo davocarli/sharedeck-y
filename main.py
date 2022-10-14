@@ -1,5 +1,4 @@
 import logging
-import requests
 
 logging.basicConfig(filename="/tmp/sharedecky.log",
                     format='[ShareDeck-y] %(asctime)s %(levelname)s %(message)s',
@@ -19,5 +18,5 @@ class Plugin:
 
     # Asyncio-compatible long-running code, executed in a task when the plugin is loaded
     async def _main(self):
-        logger.info("Hello World!")
+        # logger.info("Hello World!")
         pass
