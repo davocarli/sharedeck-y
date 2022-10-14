@@ -38,9 +38,8 @@ export function Table({
 }): ReactElement {
     let items = [];
     // @ts-ignore
-    for (const [key, value] of Object.entries(tableObject.rows)) {
-        let val = `${value}`
-        items.push(TableItem({label: key, value: val}));
+    for (const row of tableObject.rows) {
+        items.push(TableItem({label: row.label, value: row.value}));
     };
     return (
         <Focusable>
@@ -65,7 +64,7 @@ export function ReportElement({
         <PanelSection>
             {report.header}
             <div className={gamepadDialogClasses.FieldDescription}>
-                {`${report.note}`}
+                {report.note}
             </div>
             {tables}
             <div className={gamepadDialogClasses.FieldDescription}>

@@ -31,7 +31,7 @@ export interface ReportInterface {
 }
 
 export interface TableItem {
-    key: string
+    label: string
     value: any
 }
 
@@ -101,7 +101,7 @@ export class Report implements ReportInterface {
     public get playtime() {
         if (this.power_draw) {
             let minutes = Number(BATTERYSIZE / this.power_draw);
-            return `${BigInt(minutes / 60)}h${BigInt(minutes - (minutes / 60))}m`
+            return `${Math.round(minutes / 60)}h${Math.round(minutes - (minutes / 60))}m`
         }
         return null;
     }
@@ -143,13 +143,13 @@ export class Report implements ReportInterface {
     public get system_table() {
         let table = {title: 'SYSTEM', rows: []} as ShareDeckTable;
         if (this.proton_version) {
-            table.rows.push({key: "proton version", value: this.proton_version})
+            table.rows.push({label: "proton version", value: this.proton_version})
         }
         if (this.steamos_version) {
-            table.rows.push({key: "steamos version", value: this.steamos_version})
+            table.rows.push({label: "steamos version", value: this.steamos_version})
         }
         if (this.bios_version) {
-            table.rows.push({key: "bios version", value: this.bios_version})
+            table.rows.push({label: "bios version", value: this.bios_version})
         }
         return table;
     }
@@ -157,22 +157,22 @@ export class Report implements ReportInterface {
     public get configuration_table() {
         let table = {title: 'CONFIGURATION', rows: []} as ShareDeckTable;
         if (this.graphics_preset) {
-            table.rows.push({key: "graphics preset", value: this.graphics_preset})
+            table.rows.push({label: "graphics preset", value: this.graphics_preset})
         }
         if (this.screen_refresh_rate) {
-            table.rows.push({key: "screen refresh rate", value: this.fps_refresh})
+            table.rows.push({label: "screen refresh rate", value: this.fps_refresh})
         }
         if (this.framerate_limit) {
-            table.rows.push({key: "framerate limit", value: this.fps_limit})
+            table.rows.push({label: "framerate limit", value: this.fps_limit})
         }
         if (this.average_framerate) {
-            table.rows.push({key: "average framerate", value: this.fps_avg})
+            table.rows.push({label: "average framerate", value: this.fps_avg})
         }
         if (this.tdp_limit) {
-            table.rows.push({key: "tdp limit", value: this.tdp})
+            table.rows.push({label: "tdp limit", value: this.tdp})
         }
         if (this.resolution) {
-            table.rows.push({key: "resolution", value: this.resolution})
+            table.rows.push({label: "resolution", value: this.resolution})
         }
         return table;
     }
