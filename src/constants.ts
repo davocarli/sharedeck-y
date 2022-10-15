@@ -1,1 +1,1 @@
-export const shareDeckBaseUrl = "https://sharedeck.games/api/v1/reports?app_id=";
+export const shareDeckBaseUrl = "https://sharedeck.games/api/experimental/reports?app_id=";
