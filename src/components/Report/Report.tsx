@@ -1,4 +1,4 @@
-const BATTERYSIZE = 2405;
+const BATTERYSIZE = 2400;
 
 export interface SteamUser {
     personaname?: string,
@@ -101,7 +101,7 @@ export class Report implements ReportInterface {
     public get playtime() {
         if (this.power_draw) {
             let minutes = Number(BATTERYSIZE / this.power_draw);
-            return `${Math.floor(minutes / 60)}h ${Math.round(minutes % 60)}m`
+            return `${Math.round(minutes / 60)}h${Math.round(minutes % 60)}m`
         }
         return null;
     }
