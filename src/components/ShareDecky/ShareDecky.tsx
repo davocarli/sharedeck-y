@@ -1,24 +1,19 @@
-import { PanelSection, Router } from 'decky-frontend-lib';
-import { useContext, useEffect } from 'react';
+import { PanelSection, PanelSectionRow, Router, ButtonItem } from 'decky-frontend-lib';
+import { useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../../context/Context';
 import { ActionType } from '../../reducers/ShareDeckReducer';
-import { DefaultProps, getReports } from '../../utils';
-import { shareDeckBaseUrl } from '../../constants';
+import { DefaultProps, getReports, formatString, writeLog } from '../../utils';
+import { shareDeckGetReports } from '../../constants';
 import { ReportInterface, Report } from '../Report/Report';
-import {ReportElement } from '../Report/ReportElement';
+import { ReportElement } from '../Report/ReportElement';
+import { Scrollable, scrollableRef, ScrollArea } from '../Scrollable/Scrollable';
 import BuyCoffee from '../BuyCoffee/BuyCoffee';
-import ScrollSection from '../ScrollSection/ScrollSection';
+import { ReportSelect } from '../ReportSelect/ReportSelect';
 
 export const ShareDecky = ({ serverApi }: DefaultProps) => {
 
-    // const writeLog = async (content: any) => {
-    //     let text = `${content}`;
-    //     serverApi.callPluginMethod<{content: string}>("log", {content: text});
-    // };
-
-    // writeLog('Starting ShareDecky');
     const {
-        state: { runningGame, isLoading, reports },
+        state: { runningGame, isLoading, reports, selectedReport },
         dispatch,
     } = useContext(AppContext);
     
@@ -42,6 +37,8 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
         });
     };
 
+    const outerDiv = scrollableRef();
+
     useEffect(() => {
 
         const getGame = async (): Promise<string | undefined> => {
@@ -50,7 +47,6 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
         }
 
         const handleReports = (data: ReportInterface[]) => {
-            // writeLog('Handling reports');
             dispatch({
                 type: ActionType.UPDATE_REPORTS,
                 payload: data,
@@ -59,20 +55,17 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
         
         getGame().then((currentGame) => {
             if (currentGame != runningGame) {
-                // writeLog('Game has changed');
                 dispatch({
                     type: ActionType.UPDATE_RUNNING_GAME,
                     payload: currentGame,
                 });
             
                 if (currentGame != null && reports == null && !isLoading) {
-                    // writeLog('Is Calling Get Reports');
                     dispatch({
                         type: ActionType.START_LOADING,
                     });
-                    getReports(shareDeckBaseUrl + currentGame, serverApi, handleReports);
+                    getReports(formatString(shareDeckGetReports, {appid: currentGame}), serverApi, handleReports);
                 } else {
-                    // writeLog('Not calling get reports');
                 }
             }
         });
@@ -94,37 +87,47 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
     });
 
     if (runningGame == null) {
-        // writeLog('ShareDeck-y Norunning condition');
         return <PanelSection title="Open a game to see ShareDeck Reports"><BuyCoffee/></PanelSection>
     };
 
     let appDetails = appStore.GetAppOverviewByGameID(parseInt(runningGame));
 
     if (isLoading) {
-        // writeLog('ShareDeck-y isLoading condition');
         return <PanelSection spinner={true} title={appDetails.display_name}></PanelSection>
     }
 
-    let reportObjects = []
-
     if (reports == null || reports.length == 0) {
-        return <PanelSection title={appDetails.display_name}>No Reports Found<BuyCoffee/></PanelSection>
-    } else {
-        for (let i = 0; i < reports.length; i++) {
-            let report = new Report(reports[i] as ReportInterface)
-            reportObjects.push(
-                ReportElement({report: report})
-            );
-        };
-    };
+        return <PanelSection title={appDetails.display_name}><PanelSectionRow>No Reports Found</PanelSectionRow><PanelSectionRow><BuyCoffee/></PanelSectionRow></PanelSection>
+    } 
 
-    // writeLog('ShareDeck-y Other condition');
+    function chooseReport(i: number) {
+        writeLog(serverApi, `Selected ${i}`);
+        dispatch({
+            type: ActionType.SELECT_REPORT,
+            payload: i,
+        })
+    }
+
+    let formattedReports = [];
+
+    for (let r of reports) {
+        formattedReports.push(new Report(r as ReportInterface));
+    }
+
+    if (selectedReport == null) {
+        return <ReportSelect reports={formattedReports} onChoose={chooseReport}/>
+    }
+
     return (
-    <div>
-        <ScrollSection/>
-        <PanelSection>{appDetails.display_name}</PanelSection>
-        {reportObjects}
-        <BuyCoffee/>
-    </div>
+        <Scrollable ref={outerDiv}>
+            <PanelSectionRow>
+                <ButtonItem>
+                    Go Back
+                </ButtonItem>
+            </PanelSectionRow>
+            <ScrollArea scrollable={outerDiv}>
+                <ReportElement report={formattedReports[selectedReport]}/>
+            </ScrollArea>
+        </Scrollable>
     )
 }

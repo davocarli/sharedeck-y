@@ -17,6 +17,20 @@ function scrapeShareDeck(data: string): ReportInterface[] {
     }
 }
 
+export const writeLog = async (serverApi: ServerAPI, content: any) => {
+    let text = `${content}`;
+    serverApi.callPluginMethod<{content: string}>("log", {content: text});
+};
+
+
+export function formatString(str: string, data: object): string {
+    let result = str;
+    for (const [key, value] of Object.entries(data)) {
+        result = result.replaceAll("${" + key + "}", `${value}`);
+    }
+    return result;
+}
+
 export const getReports = async (
     url: string,
     serverApi: ServerAPI,

@@ -4,7 +4,7 @@ import {
     PanelSection,
     gamepadDialogClasses,
     joinClassNames,
-    Focusable,
+    PanelSectionRow,
 } from "decky-frontend-lib";
 import ScrollSection from '../ScrollSection/ScrollSection';
 
@@ -42,11 +42,10 @@ export function Table({
         items.push(TableItem({label: row.label, value: row.value}));
     };
     return (
-        <Focusable>
-            <ScrollSection/>
+        <PanelSectionRow>
                 {`${tableObject.title}`}
                 {items}
-        </Focusable>
+        </PanelSectionRow>
     )
 }
 
@@ -61,11 +60,14 @@ export function ReportElement({
         tables.push(Table({tableObject: reportTables[i]}));
     }
     return (
-        <PanelSection>
-            {report.header}
+        <PanelSection title={report.header}>
+            <PanelSectionRow>
+                {report.note}
+            </PanelSectionRow>
+            {/* {report.header}
             <div className={gamepadDialogClasses.FieldDescription}>
                 {report.note}
-            </div>
+            </div> */}
             {tables}
             <div className={gamepadDialogClasses.FieldDescription}>
                 {`Reported by: ${report.user?.personaname}`}

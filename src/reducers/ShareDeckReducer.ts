@@ -5,16 +5,23 @@ export enum ActionType {
     UPDATE_RUNNING_GAME,
     START_LOADING,
     UPDATE_REPORTS,
+    SELECT_REPORT,
 }
 
 export type AppActions = 
     | UpdateRunningGameAction
     | StartLoadingAction
     | UpdateReportsAction
+    | SelectReportAction
 
 export type UpdateRunningGameAction = {
     type: ActionType.UPDATE_RUNNING_GAME;
     payload?: string;
+}
+
+export type SelectReportAction = {
+    type: ActionType.SELECT_REPORT;
+    payload?: number;
 }
 
 export type StartLoadingAction= {
@@ -46,6 +53,17 @@ export const shareDeckReducer = (state: ShareDeckState, action: AppActions): Sha
                 ...state,
                 isLoading: false,
                 reports: action.payload,
+            }
+        case ActionType.SELECT_REPORT:
+            if (action.payload != undefined) {
+                return {
+                    ...state,
+                    selectedReport: action.payload,
+                }
+            }
+            return {
+                ...state,
+                selectedReport: null,
             }
         default:
             return state;

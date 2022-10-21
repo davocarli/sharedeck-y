@@ -13,5 +13,6 @@ export default definePlugin((serverApi: ServerAPI) => {
       </AppContextProvider>
     ),
     icon: <FaCogs />,
+    alwaysRender: true,
   };
 })

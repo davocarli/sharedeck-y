@@ -6,5 +6,5 @@ function handleClick () {
 }
 
 export default function BuyCoffee () {
-    return (<ButtonItem bottomSeparator='standard' onClick={handleClick} indentLevel={0}><FaCoffee/> Support ShareDeck</ButtonItem>)
+    return (<ButtonItem bottomSeparator='standard' onClick={handleClick}><FaCoffee/> Support ShareDeck</ButtonItem>)
 }

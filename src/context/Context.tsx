@@ -6,6 +6,7 @@ export type ShareDeckState = {
     runningGame?: string;
     reports: ReportInterface[] | null;
     isLoading: boolean;
+    selectedReport: number | null;
 };
 
 type ShareDeckContext = {
@@ -17,6 +18,7 @@ export const initialState: ShareDeckState = {
     runningGame: undefined,
     reports: null,
     isLoading: false,
+    selectedReport: null,
 };
 
 export const AppContext = createContext<ShareDeckContext>({
