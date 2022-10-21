@@ -6,7 +6,6 @@ import {
     joinClassNames,
     PanelSectionRow,
 } from "decky-frontend-lib";
-import ScrollSection from '../ScrollSection/ScrollSection';
 
 const FieldWithSeparator = joinClassNames(gamepadDialogClasses.Field, gamepadDialogClasses.WithBottomSeparatorStandard);
 
