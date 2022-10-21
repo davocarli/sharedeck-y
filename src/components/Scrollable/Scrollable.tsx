@@ -61,7 +61,7 @@ const scrollOnDirection = (
             && childNodes != undefined
             && currentIndex + 1 < childNodes.length) {
             const child = childNodes[currentIndex + 1] as HTMLElement;
-            child.click();
+            child.focus();
         } else {
             ref.current?.scrollBy({top: amt, behavior: 'smooth'});
         }
@@ -72,7 +72,7 @@ const scrollOnDirection = (
             && childNodes != undefined
             && currentIndex - 1 >= 0) {
             const child = childNodes[currentIndex - 1] as HTMLElement;
-            child.click();
+            child.focus();
         } else {
             ref.current?.scrollBy({top: -amt, behavior: 'smooth'});
         }
