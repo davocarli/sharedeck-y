@@ -100,8 +100,7 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
         return <PanelSection title={appDetails.display_name}><PanelSectionRow>No Reports Found</PanelSectionRow><PanelSectionRow><BuyCoffee/></PanelSectionRow></PanelSection>
     } 
 
-    function chooseReport(i: number) {
-        writeLog(serverApi, `Selected ${i}`);
+    function chooseReport(i?: number) {
         dispatch({
             type: ActionType.SELECT_REPORT,
             payload: i,
@@ -121,11 +120,11 @@ export const ShareDecky = ({ serverApi }: DefaultProps) => {
     return (
         <Scrollable ref={outerDiv}>
             <PanelSectionRow>
-                <ButtonItem>
+                <ButtonItem onClick={() => chooseReport()}>
                     Go Back
                 </ButtonItem>
             </PanelSectionRow>
-            <ScrollArea scrollable={outerDiv}>
+            <ScrollArea serverApi={serverApi} scrollable={outerDiv} onCancelButton={() => chooseReport()}>
                 <ReportElement report={formattedReports[selectedReport]}/>
             </ScrollArea>
         </Scrollable>

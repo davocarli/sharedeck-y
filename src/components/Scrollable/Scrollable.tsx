@@ -29,18 +29,21 @@ export const Scrollable: ForwardRefExoticComponent<any> = React.forwardRef((prop
 interface ScrollAreaProps extends FocusableProps {
     scrollable: React.RefObject<ScrollableElement>,
     scrollSpeed?: number,
+    serverApi?: ServerAPI,
 }
 
-// const writeLog = async (serverApi: ServerAPI, content: any) => {
-//     let text = `${content}`;
-//     serverApi.callPluginMethod<{content: string}>("log", {content: text});
-// };
+const writeLog = async (serverApi: ServerAPI, content: any) => {
+    let text = `${content}`;
+    serverApi.callPluginMethod<{content: string}>("log", {content: text});
+};
 
 
 const scrollOnDirection = (
     e: GamepadEvent,
     ref: React.RefObject<ScrollableElement>,
     amt: number,
+    prev: React.RefObject<HTMLDivElement>,
+    next: React.RefObject<HTMLDivElement>,
 ) => {
     let childNodes = ref.current?.childNodes;
     let currentIndex = null;
@@ -60,8 +63,7 @@ const scrollOnDirection = (
             && currentIndex != null
             && childNodes != undefined
             && currentIndex + 1 < childNodes.length) {
-            const child = childNodes[currentIndex + 1] as HTMLElement;
-            child.focus();
+                next.current?.focus();
         } else {
             ref.current?.scrollBy({top: amt, behavior: 'smooth'});
         }
@@ -71,8 +73,7 @@ const scrollOnDirection = (
             && currentIndex != null
             && childNodes != undefined
             && currentIndex - 1 >= 0) {
-            const child = childNodes[currentIndex - 1] as HTMLElement;
-            child.focus();
+                prev.current?.focus();
         } else {
             ref.current?.scrollBy({top: -amt, behavior: 'smooth'});
         }
@@ -85,6 +86,9 @@ export const ScrollArea: FC<ScrollAreaProps> = (props) => {
     if (props.scrollSpeed) {
         scrollSpeed = props.scrollSpeed;
     };
+
+    const prevFocus = useRef<HTMLDivElement>(null);
+    const nextFocus = useRef<HTMLDivElement>(null);
     
     props.onActivate = (e) => {
         const ele = e.currentTarget as HTMLElement;
@@ -94,7 +98,13 @@ export const ScrollArea: FC<ScrollAreaProps> = (props) => {
         e,
         props.scrollable,
         scrollSpeed,
+        prevFocus,
+        nextFocus,
     )};
 
-    return <Focusable {...props}/>
+    return <React.Fragment>
+            <Focusable ref={prevFocus} children={[]} onActivate={()=>{}}/>
+            <Focusable {...props}/>
+            <Focusable ref={nextFocus} children={[]} onActivate={()=>{}}/>
+        </React.Fragment>
 }
