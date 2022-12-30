@@ -1,10 +1,10 @@
 {
-  "name": "ShareDeck-y",
-  "author": "DCA",
-  "flags": ["utility", "guides"],
-  "publish": {
-    "tags": ["utility", "guides"],
-    "description": "Plugin that loads ShareDeck reports for your currently-open game.",
-    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
-  }
+	"name": "ShareDeck-y",
+	"author": "DCA",
+	"flags": ["utility", "guides", "debug"],
+	"publish": {
+		"tags": ["utility", "guides"],
+		"description": "Plugin that loads ShareDeck reports for your currently-open game.",
+		"image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+	}
 }
