@@ -1,4 +1,3 @@
-import { ServerAPI } from "decky-frontend-lib"
 import { createContext, useState } from "react"
 
 type ShareDeckContextType = {

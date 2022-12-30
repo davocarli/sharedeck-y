@@ -6,7 +6,6 @@ import {
 	PanelSectionRow,
 } from "decky-frontend-lib"
 import { Report, ShareDeckTable } from "../context"
-import { Scrollable, ScrollArea } from "../components/Scrollable/Scrollable"
 
 const FieldWithSeparator = joinClassNames(
 	gamepadDialogClasses.Field,

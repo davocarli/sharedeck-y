@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { ShareDeckContext, GameInfo } from "../context"
 import {
-	Button,
 	ButtonItem,
 	PanelSection,
 	PanelSectionRow,
@@ -103,9 +102,11 @@ const GamePicker = () => {
 			{runningGame ? (
 				<PanelSection title="Current Game">
 					<PanelSectionRow>
-						<Button onClick={() => setSelectedGame(runningGame)}>
+						<ButtonItem
+							onClick={() => setSelectedGame(runningGame)}
+						>
 							{runningGame.title}
-						</Button>
+						</ButtonItem>
 					</PanelSectionRow>
 				</PanelSection>
 			) : null}

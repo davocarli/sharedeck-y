@@ -1,18 +1,12 @@
-import {
-	DetailedHTMLProps,
-	FC,
-	ForwardRefExoticComponent,
-	HTMLAttributes,
-	ReactNode,
-} from 'react'
+import { FC, ForwardRefExoticComponent } from "react"
 import {
 	Focusable,
 	FocusableProps,
 	GamepadEvent,
 	GamepadButton,
 	ServerAPI,
-} from 'decky-frontend-lib'
-import React, { RefObject, ReactElement, useRef } from 'react'
+} from "decky-frontend-lib"
+import React, { useRef } from "react"
 
 const DEFAULTSCROLLSPEED = 50
 
@@ -29,8 +23,8 @@ export const Scrollable: ForwardRefExoticComponent<any> = React.forwardRef(
 		}
 		// props.style.minHeight = '100%';
 		// props.style.maxHeight = '80%';
-		props.style.height = '95vh'
-		props.style.overflowY = 'scroll'
+		props.style.height = "95vh"
+		props.style.overflowY = "scroll"
 
 		return (
 			<React.Fragment>
@@ -48,7 +42,7 @@ interface ScrollAreaProps extends FocusableProps {
 
 const writeLog = async (serverApi: ServerAPI, content: any) => {
 	let text = `${content}`
-	serverApi.callPluginMethod<{ content: string }>('log', { content: text })
+	serverApi.callPluginMethod<{ content: string }>("log", { content: text })
 }
 
 const scrollOnDirection = (
@@ -80,7 +74,7 @@ const scrollOnDirection = (
 		) {
 			next.current?.focus()
 		} else {
-			ref.current?.scrollBy({ top: amt, behavior: 'smooth' })
+			ref.current?.scrollBy({ top: amt, behavior: "smooth" })
 		}
 	} else if (e.detail.button == GamepadButton.DIR_UP) {
 		if (
@@ -92,7 +86,7 @@ const scrollOnDirection = (
 		) {
 			prev.current?.focus()
 		} else {
-			ref.current?.scrollBy({ top: -amt, behavior: 'smooth' })
+			ref.current?.scrollBy({ top: -amt, behavior: "smooth" })
 		}
 	}
 }
