@@ -1,5 +1,4 @@
 import {
-	Button,
 	ButtonItem,
 	PanelSection,
 	PanelSectionRow,

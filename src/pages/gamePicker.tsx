@@ -26,7 +26,7 @@ const GamePicker = () => {
 			// Steam Games
 			const installFolders =
 				await SteamClient.InstallFolder.GetInstallFolders()
-			const games: GameInfo[] = []
+			const games: Required<GameInfo>[] = []
 			const currentRunningGame = Router.MainRunningApp
 			let runningGame: GameInfo | undefined = undefined
 			installFolders.forEach((folder) => {
@@ -70,6 +70,10 @@ const GamePicker = () => {
 			// const unique = games.filter(
 			// 	({ appName }, index) => !apps.includes(appName, index + 1)
 			// )
+
+			// Sort games list
+			games.sort((a, b) => (a.sortAs > b.sortAs ? 1 : -1))
+
 			return {
 				games,
 				runningGame,
