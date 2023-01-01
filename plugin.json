@@ -1,10 +1,10 @@
 {
 	"name": "ShareDeck-y",
-	"author": "DCA",
-	"flags": ["utility", "guides", "debug"],
+	"author": "davocarli",
+	"flags": [],
 	"publish": {
-		"tags": ["utility", "guides"],
-		"description": "Plugin that loads ShareDeck reports for your currently-open game.",
-		"image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+		"tags": ["utility", "settings", "battery", "ShareDeck"],
+		"description": "Plugin that loads ShareDeck reports for your currently-open game. ShareDeck is a place for users to share the game settings they are using on their Steam Decks.",
+		"image": "https://github.com/davocarli/sharedeck-y/blob/main/screenshots/003_report_view.png?raw=true"
 	}
 }

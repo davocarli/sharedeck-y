@@ -12,15 +12,15 @@ ShareDeck-y currently supports browsing reports for any steam games in your Stea
 
 ### Game Selection
 
-![](assets/001_games_list.png)
+![](screenshots/001_games_list.png)
 
 ### Report Selection
 
-![](assets/002_reports_list.png)
+![](screenshots/002_reports_list.png)
 
 ### Report View
 
-![](assets/003_report_view.png)
+![](screenshots/003_report_view.png)
 
 ## Planned Features
 
