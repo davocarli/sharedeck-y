@@ -38,6 +38,11 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 	const [selectedReport, setSelectedReport] = useState<Report | null>(null)
 	const ref = scrollableRef()
 
+	const openWeb = (url: string) => {
+		Router.NavigateToExternalWeb(url)
+		Router.CloseSideMenus()
+	}
+
 	useEffect(() => {
 		if (typeof selectedGame?.appId === "number") {
 			getReports(selectedGame.appId, serverApi).then((res) => {
@@ -95,7 +100,7 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 				<PanelSectionRow>
 					<ButtonItem
 						onClick={() =>
-							Router.NavigateToExternalWeb(
+							openWeb(
 								SHAREDECK_NEW_REPORT_URL.replaceAll(
 									"${appid}",
 									selectedGame?.appId?.toString() || ""
