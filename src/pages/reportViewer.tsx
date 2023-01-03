@@ -98,7 +98,10 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 					</PanelSectionRow>
 				))}
 				<PanelSectionRow>
-					<ButtonItem
+					{reports.length === 0
+						? "No Reports were found for this game. Maybe you can add one? Check out https://sharedeck.games"
+						: "Using your own configuration? Share it at https://sharedeck.games"}
+					{/* <ButtonItem
 						onClick={() =>
 							openWeb(
 								SHAREDECK_NEW_REPORT_URL.replaceAll(
@@ -115,7 +118,7 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 						}
 					>
 						Submit Report
-					</ButtonItem>
+					</ButtonItem> */}
 				</PanelSectionRow>
 			</PanelSection>
 		</div>
