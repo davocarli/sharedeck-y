@@ -10,12 +10,9 @@ import { ignoreSteam, ignoreNonSteam } from "../constants"
 import LoadingPanel from "../components/loadingPanel"
 
 const GamePicker = () => {
-	const { setSelectedGame } = useContext(ShareDeckContext)
+	const { setSelectedGame, setShowSettings } = useContext(ShareDeckContext)
 	const [runningGame, setRunningGame] = useState<GameInfo | null>(null)
 	const [games, setGames] = useState<GameInfo[] | null>(null)
-
-	const handleSteamAppStateChange = () => {}
-	const handleGameActionStart = () => {}
 
 	// This useEffect hook for retrieving games is borrowed from DeckFAQs
 	useEffect(() => {
@@ -84,25 +81,22 @@ const GamePicker = () => {
 			setGames(games)
 			setRunningGame(runningGame || null)
 		})
-
-		const onAppStateChange =
-			SteamClient.GameSessions.RegisterForAppLifetimeNotifications(
-				handleSteamAppStateChange
-			)
-
-		const onGameActionStart = SteamClient.Apps.RegisterForGameActionStart(
-			handleGameActionStart
-		)
-		return function cleanup() {
-			onAppStateChange.unregister()
-			onGameActionStart.unregister()
-		}
 	}, [])
 
 	if (games === null) return <LoadingPanel />
 
 	return (
 		<div>
+			<PanelSection>
+				<PanelSectionRow>
+					<ButtonItem
+						layout="below"
+						onClick={() => setShowSettings(true)}
+					>
+						Go To Settings
+					</ButtonItem>
+				</PanelSectionRow>
+			</PanelSection>
 			{runningGame ? (
 				<PanelSection title="Current Game">
 					<PanelSectionRow>

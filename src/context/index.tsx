@@ -3,6 +3,8 @@ import { createContext, useState } from "react"
 type ShareDeckContextType = {
 	selectedGame: GameInfo | null
 	setSelectedGame: (val: GameInfo | null) => void
+	showSettings: boolean
+	setShowSettings: (val: boolean) => void
 	reports: Report[]
 	setReports: (val: Report[]) => void
 	isLoading: boolean
@@ -17,9 +19,17 @@ export type GameInfo = {
 	sortAs?: string
 }
 
+export type PluginSettings = {
+	showShareDeckToasts: boolean
+	showSDHQToasts: boolean
+	showAlways: boolean
+}
+
 const DEFAULT_CONTEXT: ShareDeckContextType = {
 	selectedGame: null,
 	setSelectedGame: () => {},
+	showSettings: false,
+	setShowSettings: () => {},
 	reports: [],
 	setReports: () => {},
 	isLoading: false,
@@ -33,6 +43,7 @@ export const ShareDeckContext =
 
 export const ShareDeckProvider = (props: React.PropsWithChildren<{}>) => {
 	const [selectedGame, setSelectedGame] = useState<GameInfo | null>(null)
+	const [showSettings, setShowSettings] = useState<boolean>(false)
 	const [reports, setReports] = useState<Report[]>([])
 	const [isLoading, setLoading] = useState<boolean>(false)
 	const [openReports, setOpenReports] = useState<number[]>([])
@@ -42,6 +53,8 @@ export const ShareDeckProvider = (props: React.PropsWithChildren<{}>) => {
 			value={{
 				selectedGame,
 				setSelectedGame,
+				showSettings,
+				setShowSettings,
 				reports,
 				setReports,
 				isLoading,
