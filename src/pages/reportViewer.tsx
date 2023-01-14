@@ -10,12 +10,14 @@ import LoadingPanel from "../components/loadingPanel"
 import { Report, ReportInterface } from "../context"
 import { ShareDeckContext } from "../context"
 import {
-	SHAREDECK_NEW_REPORT_URL,
+	SDHQ_REPORT_ENDPOINT,
+	// SHAREDECK_NEW_REPORT_URL,
 	SHAREDECK_REPORT_ENDPOINT,
 } from "../constants"
 import { ReportElement } from "./reportElement"
 import BackButton from "../components/backButton"
 import { Scrollable, ScrollArea, scrollableRef } from "../components/Scrollable"
+import { SDHQReport, SDHQHeader, SDHQReportElement } from "./sdhqReport"
 
 const getReports = async (appId: number, serverApi: ServerAPI) => {
 	const url = SHAREDECK_REPORT_ENDPOINT.replaceAll("${appid}", `${appId}`)
@@ -31,31 +33,48 @@ const getReports = async (appId: number, serverApi: ServerAPI) => {
 	}
 }
 
+const getSDHQReport = async (appId: number, serverApi: ServerAPI) => {
+	const url = SDHQ_REPORT_ENDPOINT.replaceAll("${appid}", `${appId}`)
+
+	const res = await serverApi.fetchNoCors<{ body: string }>(url, {
+		headers: { "User-Agent": "PostmanRuntime/7.30.0" },
+		method: "GET",
+	})
+
+	if (res.success) {
+		const reports = JSON.parse(res.result.body) as SDHQReport[]
+		if (reports.length > 0) return reports[0]
+	}
+	return null
+}
+
 const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 	const { selectedGame, setSelectedGame } = useContext(ShareDeckContext)
-	const [isLoading, setLoading] = useState(true)
+	const [loadingSharedeck, setLoadingSharedeck] = useState(true)
+	const [loadingSDHQ, setLoadingSDHQ] = useState(true)
+	const [sdhqReport, setSdhqReport] = useState<SDHQReport | null>(null)
 	const [reports, setReports] = useState<Report[]>([])
 	const [selectedReport, setSelectedReport] = useState<Report | null>(null)
+	const [selectedSDHQ, setSelectedSDHQ] = useState(false)
 	const ref = scrollableRef()
-
-	const openWeb = (url: string) => {
-		Router.NavigateToExternalWeb(url)
-		Router.CloseSideMenus()
-	}
 
 	useEffect(() => {
 		if (typeof selectedGame?.appId === "number") {
 			getReports(selectedGame.appId, serverApi).then((res) => {
 				if (res !== undefined) setReports(res)
-
-				setLoading(false)
+				setLoadingSharedeck(false)
+			})
+			getSDHQReport(selectedGame.appId, serverApi).then((res) => {
+				if (res !== undefined) setSdhqReport(res)
+				setLoadingSDHQ(false)
 			})
 		} else {
-			setLoading(false)
+			setLoadingSharedeck(false)
+			setLoadingSDHQ(false)
 		}
 	}, [selectedGame])
 
-	if (isLoading)
+	if (loadingSharedeck || loadingSDHQ)
 		return (
 			<div>
 				<BackButton onClick={() => setSelectedGame(null)} />
@@ -79,10 +98,48 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 		)
 	}
 
+	if (selectedSDHQ) {
+		return (
+			<div>
+				<BackButton onClick={() => setSelectedSDHQ(false)} />
+				<Scrollable ref={ref}>
+					<ScrollArea scrollable={ref}>
+						<SDHQReportElement report={sdhqReport!} />
+					</ScrollArea>
+					<PanelSection>
+						<PanelSectionRow>
+							<ButtonItem
+								layout="below"
+								onClick={() => openWeb(sdhqReport!.link)}
+							>
+								Open in SteamDeckHQ
+							</ButtonItem>
+						</PanelSectionRow>
+					</PanelSection>
+				</Scrollable>
+			</div>
+		)
+	}
+
 	return (
 		<div>
 			<BackButton onClick={() => setSelectedGame(null)} />
-			<PanelSection title={selectedGame?.title}>
+			<PanelSectionRow>
+				<h2>{selectedGame?.title}</h2>
+			</PanelSectionRow>
+			{sdhqReport ? (
+				<PanelSection title="SteamDeckHQ">
+					<PanelSectionRow>
+						<ButtonItem
+							layout="below"
+							onClick={() => setSelectedSDHQ(true)}
+						>
+							<SDHQHeader report={sdhqReport} />
+						</ButtonItem>
+					</PanelSectionRow>
+				</PanelSection>
+			) : null}
+			<PanelSection title="ShareDeck Reports">
 				{reports.map((report) => (
 					<PanelSectionRow>
 						<ButtonItem
@@ -99,7 +156,7 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 				))}
 				<PanelSectionRow>
 					{reports.length === 0
-						? "No Reports were found for this game. Maybe you can add one? Check out https://sharedeck.games"
+						? "No ShareDeck Reports were found for this game. Maybe you can add one? Check out https://sharedeck.games"
 						: "Using your own configuration? Share it at https://sharedeck.games"}
 					{/* <ButtonItem
 						onClick={() =>
@@ -128,3 +185,8 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 }
 
 export default GameReports
+
+function openWeb(url: string) {
+	Router.NavigateToExternalWeb(url)
+	Router.CloseSideMenus()
+}

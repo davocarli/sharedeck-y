@@ -107,6 +107,7 @@ const GamePicker = () => {
 				<PanelSection title="Current Game">
 					<PanelSectionRow>
 						<ButtonItem
+							layout="below"
 							onClick={() => setSelectedGame(runningGame)}
 						>
 							{runningGame.title}
