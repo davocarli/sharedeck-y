@@ -40,10 +40,10 @@ interface ScrollAreaProps extends FocusableProps {
 	serverApi?: ServerAPI
 }
 
-const writeLog = async (serverApi: ServerAPI, content: any) => {
-	let text = `${content}`
-	serverApi.callPluginMethod<{ content: string }>("log", { content: text })
-}
+// const writeLog = async (serverApi: ServerAPI, content: any) => {
+// 	let text = `${content}`
+// 	serverApi.callPluginMethod<{ content: string }>("log", { content: text })
+// }
 
 const scrollOnDirection = (
 	e: GamepadEvent,

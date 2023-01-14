@@ -1,11 +1,6 @@
 import { Table } from "./reportElement"
 import { ShareDeckTable } from "../context"
-import {
-	ButtonItem,
-	PanelSection,
-	PanelSectionRow,
-	Router,
-} from "decky-frontend-lib"
+import { PanelSection, PanelSectionRow } from "decky-frontend-lib"
 import React from "react"
 
 export type SDHQReport = {
@@ -43,13 +38,10 @@ export function SDHQReportElement({ report }: { report: SDHQReport }) {
 			{tables.map((t) => (
 				<Table tableObject={t} />
 			))}
+			<div style={{ height: "10px" }} />
 			<PanelSectionRow>
-				{removeHTMLTags(report.excerpt.rendered).replaceAll(
-					"[[&hellip;]]",
-					"..."
-				)}
+				{removeHTMLTags(report.excerpt.rendered).replaceAll("[…]", "…")}
 			</PanelSectionRow>
-			<PanelSectionRow></PanelSectionRow>
 		</PanelSection>
 	)
 }
@@ -63,10 +55,15 @@ export const SDHQHeader = ({ report }: { report: SDHQReport }) => (
 		{report.acf.sdhq_rating}★ |{" "}
 		<small>
 			{
+				report.acf.optimized_and_recommended_settings
+					.projected_battery_usage_and_temperature.wattage
+			}
+			{" | "}
+			{
 				report.acf.optimized_and_recommended_settings.steamos_settings
 					.fps_cap
-			}{" "}
-			|{" "}
+			}
+			{" fps | "}
 			{
 				report.acf.optimized_and_recommended_settings
 					.projected_battery_usage_and_temperature.gameplay_time

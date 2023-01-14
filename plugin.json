@@ -1,7 +1,7 @@
 {
 	"name": "ShareDeck-y",
 	"author": "davocarli",
-	"flags": [],
+	"flags": ["debug"],
 	"publish": {
 		"tags": ["utility", "settings", "battery", "ShareDeck"],
 		"description": "Plugin that loads ShareDeck & SteamDeckHQ reports for your currently-open game. ShareDeck is a place for users to share the game settings they are using on their Steam Decks.",

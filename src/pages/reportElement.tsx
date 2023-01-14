@@ -21,11 +21,23 @@ export function TableItem({
 }): ReactElement {
 	return (
 		<div className={FieldWithSeparator}>
-			<div className={gamepadDialogClasses.FieldLabelRow}>
-				<div className={gamepadDialogClasses.FieldLabel}>
+			<div
+				style={{
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}
+				className={gamepadDialogClasses.FieldLabelRow}
+			>
+				<div
+					style={{ flexGrow: 0 }}
+					className={gamepadDialogClasses.FieldLabel}
+				>
 					{`${label}`}
 				</div>
-				<div className={gamepadDialogClasses.FieldChildren}>
+				<div
+					style={{ textAlign: "right" }}
+					className={gamepadDialogClasses.FieldChildren}
+				>
 					{`${value}`}
 				</div>
 			</div>

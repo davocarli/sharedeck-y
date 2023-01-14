@@ -125,7 +125,9 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 		<div>
 			<BackButton onClick={() => setSelectedGame(null)} />
 			<PanelSectionRow>
-				<h2>{selectedGame?.title}</h2>
+				<h2 style={{ marginBottom: "0px", marginTop: "-12px" }}>
+					{selectedGame?.title}
+				</h2>
 			</PanelSectionRow>
 			{sdhqReport ? (
 				<PanelSection title="SteamDeckHQ">
@@ -148,7 +150,7 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 						>
 							{report.playtime} |{" "}
 							<small>
-								{report.power_draw} | {report.fps} |{" "}
+								{report.power_draw}w | {report.fps} |{" "}
 								{report.graphics_preset}
 							</small>
 						</ButtonItem>
