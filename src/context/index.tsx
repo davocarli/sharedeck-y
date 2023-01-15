@@ -1,3 +1,4 @@
+import { ServerAPI } from "decky-frontend-lib"
 import { createContext, useState } from "react"
 
 type ShareDeckContextType = {
@@ -11,6 +12,8 @@ type ShareDeckContextType = {
 	setLoading: (val: boolean) => void
 	openReports: number[]
 	setOpenReports: (val: number[]) => void
+	serverApi: ServerAPI | null
+	setServerApi: (val: ServerAPI) => void
 }
 
 export type GameInfo = {
@@ -36,6 +39,8 @@ const DEFAULT_CONTEXT: ShareDeckContextType = {
 	setLoading: () => {},
 	openReports: [],
 	setOpenReports: () => {},
+	serverApi: null,
+	setServerApi: () => {},
 }
 
 export const ShareDeckContext =
@@ -47,6 +52,7 @@ export const ShareDeckProvider = (props: React.PropsWithChildren<{}>) => {
 	const [reports, setReports] = useState<Report[]>([])
 	const [isLoading, setLoading] = useState<boolean>(false)
 	const [openReports, setOpenReports] = useState<number[]>([])
+	const [serverApi, setServerApi] = useState<ServerAPI | null>(null)
 
 	return (
 		<ShareDeckContext.Provider
@@ -61,6 +67,8 @@ export const ShareDeckProvider = (props: React.PropsWithChildren<{}>) => {
 				setLoading,
 				openReports,
 				setOpenReports,
+				serverApi,
+				setServerApi,
 			}}
 			{...props}
 		/>

@@ -15,8 +15,9 @@ import { Scrollable, ScrollArea, scrollableRef } from "../components/Scrollable"
 import { SDHQReport, SDHQHeader, SDHQReportElement } from "./sdhqReport"
 import { getReports, getSDHQReview } from "../requests"
 
-const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
-	const { selectedGame, setSelectedGame } = useContext(ShareDeckContext)
+const GameReports = () => {
+	const { selectedGame, setSelectedGame, serverApi } =
+		useContext(ShareDeckContext)
 	const [loadingSharedeck, setLoadingSharedeck] = useState(true)
 	const [loadingSDHQ, setLoadingSDHQ] = useState(true)
 	const [sdhqReport, setSdhqReport] = useState<SDHQReport | null>(null)
@@ -26,6 +27,7 @@ const GameReports = ({ serverApi }: { serverApi: ServerAPI }) => {
 	const ref = scrollableRef()
 
 	useEffect(() => {
+		if (!serverApi) return
 		if (typeof selectedGame?.appId === "number") {
 			getReports(selectedGame.appId, serverApi).then((res) => {
 				if (res !== undefined) setReports(res)

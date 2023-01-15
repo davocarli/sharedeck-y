@@ -1,32 +1,32 @@
-import {
-	definePlugin,
-	Router,
-	ServerAPI,
-	staticClasses,
-} from "decky-frontend-lib"
-import { useContext } from "react"
+import { definePlugin, ServerAPI, staticClasses } from "decky-frontend-lib"
+import { useContext, useEffect } from "react"
 import { FaCogs } from "react-icons/fa"
 import { ShareDeckContext, ShareDeckProvider } from "./context"
 import GamePicker from "./pages/gamePicker"
 import GameReports from "./pages/reportViewer"
 import SettingsPage from "./pages/settings"
-import sdhqlogo from "../assets/sdhqlogo.jpg"
-import sharedecklogo from "../assets/sharedecklogo.png"
 import {
 	getReports,
 	getSDHQReview,
 	getSettings,
 	getToastedGames,
+	sendSDHQToast,
+	sendShareDeckToast,
 } from "./requests"
 
 const ShareDecky = ({ serverApi }: { serverApi: ServerAPI }) => {
-	const { selectedGame, showSettings } = useContext(ShareDeckContext)
+	const { selectedGame, showSettings, setServerApi } =
+		useContext(ShareDeckContext)
+
+	useEffect(() => {
+		setServerApi(serverApi)
+	})
 
 	if (showSettings) return <SettingsPage />
 
 	if (selectedGame === null) return <GamePicker />
 
-	return <GameReports serverApi={serverApi} />
+	return <GameReports />
 }
 
 export default definePlugin((serverApi: ServerAPI) => {
@@ -50,24 +50,12 @@ export default definePlugin((serverApi: ServerAPI) => {
 			// Send toasts
 			if (userSettings.showShareDeckToasts)
 				getReports(strAppId, serverApi).then((reports) => {
-					if (reports.length > 0)
-						serverApi.toaster.toast({
-							title: "Settings Reports Available",
-							body: "There are ShareDeck settings reports for this game!",
-							playSound: true,
-							logo: <img src={sharedecklogo} />,
-						})
+					if (reports.length > 0) sendShareDeckToast(serverApi)
 				})
 
 			if (userSettings.showSDHQToasts)
 				getSDHQReview(strAppId, serverApi, ["none"]).then((review) => {
-					if (review !== null)
-						serverApi.toaster.toast({
-							title: "SDHQ Review Available",
-							body: "SteamDeckHQ has done a performance review of this game!",
-							playSound: true,
-							logo: <img width="64" height="64" src={sdhqlogo} />,
-						})
+					if (review !== null) sendSDHQToast(serverApi)
 				})
 		}
 	)

@@ -1,15 +1,17 @@
 import {
+	ButtonItem,
 	PanelSection,
 	PanelSectionRow,
 	SliderField,
 	ToggleField,
 } from "decky-frontend-lib"
-import { useState } from "react"
-import { PluginSettings } from "../context"
-import { getSettings } from "../requests"
+import { useContext, useState } from "react"
+import { PluginSettings, ShareDeckContext } from "../context"
+import { getSettings, sendSDHQToast, sendShareDeckToast } from "../requests"
 
 const SettingsPage = () => {
 	const [currentSettings, setCurrentSettings] = useState(() => getSettings())
+	const { serverApi } = useContext(ShareDeckContext)
 
 	const updateSetting = (label: keyof PluginSettings, value: any) => {
 		currentSettings[label] = value
@@ -18,6 +20,12 @@ const SettingsPage = () => {
 			JSON.stringify(currentSettings)
 		)
 		setCurrentSettings(Object.assign({}, currentSettings))
+	}
+
+	const sendToasts = () => {
+		if (!serverApi) return
+		if (currentSettings.showShareDeckToasts) sendShareDeckToast(serverApi)
+		if (currentSettings.showSDHQToasts) sendSDHQToast(serverApi)
 	}
 
 	return (
@@ -46,6 +54,13 @@ const SettingsPage = () => {
 					onChange={(n) => updateSetting("showAlways", !n)}
 				/>
 			</PanelSectionRow>
+			{serverApi ? (
+				<PanelSectionRow>
+					<ButtonItem layout="below" onClick={() => sendToasts()}>
+						Test Notifications
+					</ButtonItem>
+				</PanelSectionRow>
+			) : null}
 		</PanelSection>
 	)
 
