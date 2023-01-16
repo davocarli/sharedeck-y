@@ -61,7 +61,7 @@ export default definePlugin((serverApi: ServerAPI) => {
 	)
 
 	return {
-		title: <div className={staticClasses.Title}>ShareDeck-y</div>,
+		title: <div className={staticClasses.Title}>DeckSettings</div>,
 		content: (
 			<ShareDeckProvider>
 				<ShareDecky serverApi={serverApi} />

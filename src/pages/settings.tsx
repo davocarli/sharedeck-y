@@ -2,7 +2,6 @@ import {
 	ButtonItem,
 	PanelSection,
 	PanelSectionRow,
-	SliderField,
 	ToggleField,
 } from "decky-frontend-lib"
 import { useContext, useState } from "react"
@@ -63,8 +62,6 @@ const SettingsPage = () => {
 			) : null}
 		</PanelSection>
 	)
-
-	return <div />
 }
 
 export default SettingsPage

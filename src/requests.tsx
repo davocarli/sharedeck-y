@@ -1,4 +1,10 @@
-import { ServerAPI } from "decky-frontend-lib"
+import {
+	Navigation,
+	ServerAPI,
+	QuickAccessTab,
+	staticClasses,
+	SideMenu,
+} from "decky-frontend-lib"
 import { SDHQ_REPORT_ENDPOINT, SHAREDECK_REPORT_ENDPOINT } from "./constants"
 import { PluginSettings, Report, ReportInterface } from "./context"
 import { SDHQReport } from "./pages/sdhqReport"
@@ -67,11 +73,18 @@ export const getSettings = () => {
 const sendToast = (serverApi: ServerAPI, title: string, img: string) => {
 	serverApi.toaster.toast({
 		title: title,
-		body: "Open ShareDeck-y Plugin for details...",
+		body: "Open DeckSettings Plugin for recommended settings...",
+		className: staticClasses.FullHeight,
 		playSound: true,
 		sound: 8,
-		// duration: 1000000,
-		logo: <img height="64px" src={img} />,
+		eType: 1,
+		onClick: () => {
+			// console.log(Navigation)
+			// console.log(JSON.stringify(Navigation))
+			Navigation.OpenQuickAccessMenu(QuickAccessTab.Decky)
+		},
+		// duration: 1000000,  // For debugging/styling
+		logo: <img height="40px" src={img} />,
 	})
 }
 
