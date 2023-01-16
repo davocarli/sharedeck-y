@@ -46,7 +46,7 @@ export default definePlugin((serverApi: ServerAPI) => {
 					let toastedGames = getToastedGames()
 					if (toastedGames.includes(appId)) return
 
-					toastedGames.push()
+					toastedGames.push(appId)
 					window.localStorage.setItem(
 						"sharedecky-toasted-games",
 						JSON.stringify(toastedGames)
