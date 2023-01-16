@@ -1,4 +1,4 @@
-# ShareDeck-y
+# DeckSettings
 
 ## Description
 
