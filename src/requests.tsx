@@ -58,8 +58,8 @@ const getLocalStorageItem = <T,>(key: string, def: T): T => {
 	return def
 }
 
-export const getToastedGames = (): string[] => {
-	return getLocalStorageItem("sharedecky-toasted-games", [] as string[])
+export const getToastedGames = (): number[] => {
+	return getLocalStorageItem("sharedecky-toasted-games", [] as number[])
 }
 
 export const getSettings = () => {
@@ -73,7 +73,7 @@ export const getSettings = () => {
 const sendToast = (serverApi: ServerAPI, title: string, img: string) => {
 	serverApi.toaster.toast({
 		title: title,
-		body: "Open DeckSettings Plugin for recommended settings...",
+		body: "Open DeckSettings Plugin for details...",
 		className: staticClasses.FullHeight,
 		playSound: true,
 		sound: 8,

@@ -1,10 +1,10 @@
 {
 	"name": "DeckSettings",
 	"author": "davocarli",
-	"flags": ["debug"],
+	"flags": [],
 	"publish": {
 		"tags": ["utility", "settings", "battery", "ShareDeck", "performance"],
-		"description": "Plugin to browse ShareDeck & SteamDeckHQ recommended game settings. ShareDeck is a place for users to share game settings they are using on their Steam Decks. SteamDeckHQ provides recommended settings & Steam Deck performance reviews for popular games.",
-		"image": "https://github.com/davocarli/sharedeck-y/blob/main/screenshots/003_report_view.png?raw=true"
+		"description": "Plugin to browse recommended Steam Deck game settings from ShareDeck and SteamDeckHQ.",
+		"image": "https://github.com/davocarli/sharedeck-y/blob/main/screenshots/003_sharedeck_report.png?raw=true"
 	}
 }
