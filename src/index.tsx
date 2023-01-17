@@ -13,7 +13,9 @@ import {
 	sendSDHQToast,
 	sendShareDeckToast,
 } from "./requests"
+//@ts-ignore
 if (window.DeckyPluginLoader?.hasPlugin("ShareDeck-y"))
+	//@ts-ignore
 	window.DeckyPluginLoader?.unloadPlugin("ShareDeck-y")
 
 const ShareDecky = ({ serverApi }: { serverApi: ServerAPI }) => {
