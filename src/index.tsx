@@ -13,8 +13,13 @@ import {
 	sendSDHQToast,
 	sendShareDeckToast,
 } from "./requests"
+//@ts-ignore
+if (window.DeckyPluginLoader?.hasPlugin("ShareDeck-y"))
+	window.DeckyPluginLoader?.unloadPlugin("ShareDeck-y")
 
 const ShareDecky = ({ serverApi }: { serverApi: ServerAPI }) => {
+	// removePlugin("ShareDeck-y")
+
 	const { selectedGame, showSettings, setServerApi } =
 		useContext(ShareDeckContext)
 
