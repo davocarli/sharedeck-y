@@ -13,7 +13,6 @@ import {
 	sendSDHQToast,
 	sendShareDeckToast,
 } from "./requests"
-//@ts-ignore
 if (window.DeckyPluginLoader?.hasPlugin("ShareDeck-y"))
 	window.DeckyPluginLoader?.unloadPlugin("ShareDeck-y")
 
