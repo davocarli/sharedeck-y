@@ -1,15 +1,16 @@
 import {
 	Navigation,
-	ServerAPI,
 	QuickAccessTab,
-	staticClasses,
+	ServerAPI,
 	SideMenu,
+	staticClasses,
 } from "decky-frontend-lib"
+
+import sdhqlogo from "../assets/sdhqlogo.jpg"
+import sharedecklogo from "../assets/sharedecklogo.png"
 import { SDHQ_REPORT_ENDPOINT, SHAREDECK_REPORT_ENDPOINT } from "./constants"
 import { PluginSettings, Report, ReportInterface } from "./context"
 import { SDHQReport } from "./pages/sdhqReport"
-import sdhqlogo from "../assets/sdhqlogo.jpg"
-import sharedecklogo from "../assets/sharedecklogo.png"
 
 export const getReports = async (
 	appId: number | string,
@@ -79,8 +80,7 @@ const sendToast = (serverApi: ServerAPI, title: string, img: string) => {
 		sound: 8,
 		eType: 1,
 		onClick: () => {
-			// console.log(Navigation)
-			// console.log(JSON.stringify(Navigation))
+			console.log("tapped")
 			Navigation.OpenQuickAccessMenu(QuickAccessTab.Decky)
 		},
 		// duration: 1000000,  // For debugging/styling

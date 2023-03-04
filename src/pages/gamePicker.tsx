@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react"
-import { ShareDeckContext, GameInfo } from "../context"
 import {
 	ButtonItem,
 	PanelSection,
 	PanelSectionRow,
 	Router,
 } from "decky-frontend-lib"
-import { ignoreSteam, ignoreNonSteam } from "../constants"
+import { useContext, useEffect, useState } from "react"
+
 import LoadingPanel from "../components/loadingPanel"
+import { ignoreNonSteam, ignoreSteam } from "../constants"
+import { GameInfo, ShareDeckContext } from "../context"
 
 const GamePicker = () => {
 	const { setSelectedGame, setShowSettings } = useContext(ShareDeckContext)

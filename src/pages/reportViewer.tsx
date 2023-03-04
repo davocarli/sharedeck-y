@@ -1,19 +1,20 @@
 import {
 	ButtonItem,
+	Navigation,
 	PanelSection,
 	PanelSectionRow,
 	Router,
 	ServerAPI,
 } from "decky-frontend-lib"
 import { useContext, useEffect, useState } from "react"
-import LoadingPanel from "../components/loadingPanel"
-import { Report } from "../context"
-import { ShareDeckContext } from "../context"
-import { ReportElement } from "./reportElement"
+
 import BackButton from "../components/backButton"
-import { Scrollable, ScrollArea, scrollableRef } from "../components/Scrollable"
-import { SDHQReport, SDHQHeader, SDHQReportElement } from "./sdhqReport"
+import LoadingPanel from "../components/loadingPanel"
+import { Scrollable, scrollableRef, ScrollArea } from "../components/Scrollable"
+import { Report, ShareDeckContext } from "../context"
 import { getReports, getSDHQReview } from "../requests"
+import { ReportElement } from "./reportElement"
+import { SDHQHeader, SDHQReport, SDHQReportElement } from "./sdhqReport"
 
 const GameReports = () => {
 	const { selectedGame, setSelectedGame, serverApi } =
@@ -165,6 +166,6 @@ const GameReports = () => {
 export default GameReports
 
 function openWeb(url: string) {
-	Router.NavigateToExternalWeb(url)
+	Navigation.NavigateToExternalWeb(url)
 	Router.CloseSideMenus()
 }

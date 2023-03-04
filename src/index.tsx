@@ -1,6 +1,7 @@
 import { definePlugin, ServerAPI, staticClasses } from "decky-frontend-lib"
 import { useContext, useEffect } from "react"
 import { FaCogs } from "react-icons/fa"
+
 import { ShareDeckContext, ShareDeckProvider } from "./context"
 import GamePicker from "./pages/gamePicker"
 import GameReports from "./pages/reportViewer"
@@ -13,10 +14,11 @@ import {
 	sendSDHQToast,
 	sendShareDeckToast,
 } from "./requests"
-//@ts-ignore
-if (window.DeckyPluginLoader?.hasPlugin("ShareDeck-y"))
-	//@ts-ignore
-	window.DeckyPluginLoader?.unloadPlugin("ShareDeck-y")
+
+// This is a hack to remove ShareDeck-y (the old name for this plugin)
+// if (window.DeckyPluginLoader?.hasPlugin("ShareDeck-y"))
+// 	//@ts-ignore
+// 	window.DeckyPluginLoader?.unloadPlugin("ShareDeck-y")
 
 const ShareDecky = ({ serverApi }: { serverApi: ServerAPI }) => {
 	// removePlugin("ShareDeck-y")
