@@ -26,6 +26,7 @@ export type PluginSettings = {
 	showShareDeckToasts: boolean
 	showSDHQToasts: boolean
 	showAlways: boolean
+	showAllApps: boolean
 }
 
 const DEFAULT_CONTEXT: ShareDeckContextType = {

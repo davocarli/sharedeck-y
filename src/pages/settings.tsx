@@ -4,8 +4,8 @@ import {
 	PanelSectionRow,
 	ToggleField,
 } from "decky-frontend-lib"
-import React from "react"
-import { useContext, useState } from "react"
+import React, { useContext, useState } from "react"
+
 import BackButton from "../components/backButton"
 import { PluginSettings, ShareDeckContext } from "../context"
 import { getSettings, sendSDHQToast, sendShareDeckToast } from "../requests"
@@ -34,6 +34,14 @@ const SettingsPage = () => {
 			<BackButton onClick={() => setShowSettings(false)} />
 
 			<PanelSection title="Settings">
+				<PanelSectionRow>
+					<ToggleField
+						checked={currentSettings.showAllApps}
+						label="Show Entire Library in Games List"
+						description="If enabled, all Steam games in your library will be shown in the Games List. If disabled, only installed games will be shown."
+						onChange={(n) => updateSetting("showAllApps", n)}
+					/>
+				</PanelSectionRow>
 				<PanelSectionRow>
 					<ToggleField
 						checked={currentSettings.showShareDeckToasts}

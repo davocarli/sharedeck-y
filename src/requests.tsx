@@ -63,12 +63,13 @@ export const getToastedGames = (): number[] => {
 	return getLocalStorageItem("sharedecky-toasted-games", [] as number[])
 }
 
-export const getSettings = () => {
+export const getSettings = (): PluginSettings => {
 	return getLocalStorageItem("sharedecky-settings", {
 		showShareDeckToasts: true,
 		showSDHQToasts: true,
 		showAlways: false,
-	} as PluginSettings)
+		showAllApps: false,
+	})
 }
 
 const sendToast = (serverApi: ServerAPI, title: string, img: string) => {
