@@ -1,6 +1,6 @@
 {
 	"name": "sharedeck-y",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"description": "Plugin that loads ShareDeck & SteamDeckHQ reports for your currently-open game.",
 	"scripts": {
 		"build": "shx rm -rf dist && rollup -c",
@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.6",
 		"axios": "^1.1.2",
-		"decky-frontend-lib": "^3.21.8",
+		"decky-frontend-lib": "^3.22.0",
 		"react-icons": "^4.4.0",
 		"react-redux": "^8.0.4"
 	},
