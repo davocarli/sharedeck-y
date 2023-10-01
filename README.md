@@ -1,8 +1,10 @@
-# DeckSettings
+# DeckSettingsEX
 
 ## Description
 
 A Decky Plugin for browsing recommended Steam Deck game settings from [ShareDeck](https://sharedeck.games) and [SteamDeckHQ](https://steamdeckhq.com/)
+
+This is a fork of @davocarli's [DeckSettings](https://github.com/davocarli/sharedeck-y) plugin with updates to support the latest versions of Decky.
 
 Allows you to see the recommended settings, and supports sending notifications when you open a game that has reported settings.
 
@@ -10,7 +12,7 @@ Built with [Decky Plugin Loader](https://github.com/SteamDeckHomebrew/PluginLoad
 
 ## Current Features
 
-ShareDeck-y currently supports browsing reports for any steam games in your Steam Library.
+DeckSettingsEX currently supports browsing reports for any steam games in your Steam Library.
 
 ### Game/Report Selection
 
